@@ -26,7 +26,7 @@ public class RegistrationRemoteTests {
 //        Configuration.browser = "chrome";
         Configuration.timeout = 10000;
 //        Configuration.holdBrowserOpen = true;
-       /* Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
@@ -35,7 +35,7 @@ public class RegistrationRemoteTests {
         ));
         Configuration.browserCapabilities = capabilities;
 
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());*/
+        //SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
 
    /* @AfterEach
