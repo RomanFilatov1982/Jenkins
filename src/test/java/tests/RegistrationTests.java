@@ -1,41 +1,75 @@
 package tests;
-import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.appear;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.logevents.SelenideLogger.step;
+
 public class RegistrationTests extends TestBase {
 
+
     @Test
+    @Tag("web")
     void successfulRegistrationTest() {
-        open("/automation-practice-form");
-        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
-        executeJavaScript("$('#fixedban').remove()");
-        executeJavaScript("$('footer').remove()");
+        step("Открываем главную страницу", () -> {
+            open("/automation-practice-form");
+            $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
+            executeJavaScript("$('#fixedban').remove()");
+            executeJavaScript("$('footer').remove()");
+        });
+        step("В поле \"Firstname\" ввести \"Roman\"", () -> {
+            $("#firstName").setValue("Roman");
+        });
+        step("В поле \"LastName\" ввести \"Filatov\"", () -> {
+            $("#lastName").setValue("Filatov");
+        });
+        step("В поле \"Email\" ввести \"romanf@gmail.com\"", () -> {
+            $("#userEmail").setValue("romanf@gmail.com");
+        });
+        step("Выбрать пол \"Male\"", () -> {
+            $("#genterWrapper").$(byText("Male")).click();
+        });
 
-        $("#firstName").setValue("Alex");
-        $("#lastName").setValue("Egorov");
-        $("#userEmail").setValue("alex@egorov.com");
-        $("#genterWrapper").$(byText("Other")).click();
-        $("#userNumber").setValue("1234567890");
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption("July");
-        $(".react-datepicker__year-select").selectOption("2008");
-        $(".react-datepicker__day--030:not(.react-datepicker__day--outside-month)").click();
-        $("#subjectsInput").setValue("Math").pressEnter();
-        $("#hobbiesWrapper").$(byText("Sports")).click();
-        $("#uploadPicture").uploadFromClasspath("img/1.png");
-        $("#currentAddress").setValue("Some address 1");
-        $("#state").click();
-        $("#stateCity-wrapper").$(byText("NCR")).click();
-        $("#city").click();
-        $("#stateCity-wrapper").$(byText("Delhi")).click();
-        $("#submit").click();
+        step("В поле \"Mobile Number\" ввести номер телефона \"9085693730\"", () -> {
+            $("#userNumber").setValue("9085693730");
+        });
+        step("В поле \"Date of Birth\" ввести дату рождения \"18 January 1982\"", () -> {
+            $("#dateOfBirthInput").click();
+            $(".react-datepicker__month-select").selectOption("January");
+            $("select.react-datepicker__year-select").selectOption("1982");
+            $(".react-datepicker__day--018:not(.react-datepicker__day--outside-month)").click();
+        });
+        step("В поле \"Subjects\" ввести номер телефона \"Physics\"", () -> {
+            $("#subjectsInput").setValue("Physics").pressEnter().scrollTo();
+        });
+        step("Выбрать хобби \"Sports\"", () -> {
+            $("#hobbiesWrapper").$(byText("Sports")).click();
+        });
+        step("Загрузить файл \"main-2.jpg\"", () -> {
+            $("#uploadPicture").uploadFromClasspath("img/main-2.jpg");
+        });
+        step("В поле \"Current Address\" ввести адрес \"Proxladnaya street 28\"", () -> {
+            $("#currentAddress").setValue("Proxladnaya street 28");
+        });
+        step("Выбрать из выпадающего списка \"State\" \"Haryana\"", () -> {
+            $("#state").click();
+            $("#stateCity-wrapper").$(byText("Haryana")).click();
+        });
+        step("Выбрать из выпадающего списка \"City\" \"Karnal\"", () -> {
+            $("#city").click();
+            $("#stateCity-wrapper").$(byText("Karnal")).click();
+        });
+        step("Кликнуть на кнопку \"Submit\"", () -> {
+            $("#submit").click();
+        });
 
-        $(".modal-dialog").should(appear);
-        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(text("Alex"), text("Egorov"),
-                text("alex@egorov.com"), text("1234567890"));
+        step("Проверка результатов формы", () -> {
+            $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+            $(".table-responsive").shouldHave(text("Roman Filatov"), text("romanf@gmail.com"),
+                    text("Male"), text("9085693730"), text("18 January,1982"), text("Physics"), text("Sports"),
+                    text("main-2.jpg"), text("Proxladnaya street 28"), text("Haryana Karnal"));
+        });
     }
 }
