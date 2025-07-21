@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.*;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.Condition.text;
@@ -12,6 +14,12 @@ public class RegistrationTests extends TestBase {
 
     @Test
     @Tag("web")
+    @Feature("Practice Form")
+    @Story("Успешное заполнение формы регистрации")
+    @Owner("filatovri")
+    @Severity(SeverityLevel.BLOCKER)
+    @Link(value = "Practice Form", url = "https://demoqa.com/automation-practice-form")
+    @DisplayName("Student Registration Form")
     void successfulRegistrationTest() {
         step("Открываем главную страницу", () -> {
             open("/automation-practice-form");
