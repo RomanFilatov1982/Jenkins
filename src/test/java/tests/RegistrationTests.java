@@ -9,15 +9,14 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.logevents.SelenideLogger.step;
 
+@Feature("Practice Form")
 public class RegistrationTests extends TestBase {
 
 
     @Test
     @Tag("web")
-    @Feature("Practice Form")
     @Story("Успешное заполнение формы регистрации")
     @Owner("filatovri")
-    @Severity(SeverityLevel.BLOCKER)
     @Link(value = "Practice Form", url = "https://demoqa.com/automation-practice-form")
     @DisplayName("Student Registration Form")
     void successfulRegistrationTest() {
